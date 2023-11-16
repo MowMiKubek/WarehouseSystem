@@ -1,7 +1,9 @@
 package com.project.warehouse.controller;
 
 import com.project.warehouse.model.User;
+import com.project.warehouse.model.dto.RegisterDTO;
 import com.project.warehouse.service.UserServiceDefault;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.http.HttpStatus;
@@ -15,6 +17,8 @@ import java.util.List;
 public class UserController {
     @Autowired
     private UserServiceDefault userService;
+    @Autowired
+    private HttpServletRequest request;
 
     @GetMapping
     public ResponseEntity<List<User>> getAll() {
@@ -29,13 +33,13 @@ public class UserController {
     }
 
     @PostMapping
-    public ResponseEntity<User> save(@RequestBody() User user) {
-        User newUser = userService.save(user);
+    public ResponseEntity<User> save(@RequestBody() RegisterDTO registerDTO) {
+        User newUser = userService.save(registerDTO);
         return new ResponseEntity<>(newUser, HttpStatus.CREATED);
     }
 
     @PatchMapping("/{id}")
-    public ResponseEntity<User> update(@RequestBody() User user, @PathVariable("id") long id) throws ChangeSetPersister.NotFoundException {
+    public ResponseEntity<User> update(@RequestBody() RegisterDTO user, @PathVariable("id") long id) throws ChangeSetPersister.NotFoundException {
         User updatedUser = userService.update(id, user);
         return new ResponseEntity<>(updatedUser, HttpStatus.OK);
     }

@@ -6,3 +6,6 @@ INSERT INTO items (brand, name, ean) VALUES ('Semilac', 'Lakier do paznokci', '5
 INSERT INTO items (brand, name, ean) VALUES ('Claresa', 'Top do paznokci', '6789012345678');
 INSERT INTO items (brand, name, ean) VALUES ('Pilaten', 'Maska na twarz', '7890123456789');
 INSERT INTO items (brand, name, ean) VALUES ('Kallos', 'Maska do wlosow', '8901234567890');
+
+INSERT INTO users(name, surname, login, password) VALUES('Maciej', 'Maruda', 'mmaruda', '$2a$10$XLDLmPQeD7MMD6IkDnNy7eEuXcqZsSHMnOnJC5y./sW2ppXUPXBlm');
+INSERT INTO users(name, surname, login, password) VALUES('Jakub', 'Kowalik', 'jkowalik', '$2a$10$XLDLmPQeD7MMD6IkDnNy7eEuXcqZsSHMnOnJC5y./sW2ppXUPXBlm');
