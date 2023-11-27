@@ -7,6 +7,7 @@ import com.project.warehouse.model.dto.UpdateDocumentDTO;
 import com.project.warehouse.service.DocumentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.crossstore.ChangeSetPersister;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -29,13 +30,15 @@ public class DocumentController {
     }
 
     @PostMapping
-    public Document create(@RequestBody CreateDocumentDTO createDocumentDTO) throws ChangeSetPersister.NotFoundException {
-        return documentService.create(createDocumentDTO);
+    public ResponseEntity<Document> create(@RequestBody CreateDocumentDTO createDocumentDTO) throws ChangeSetPersister.NotFoundException {
+        Document document = documentService.create(createDocumentDTO);
+        return new ResponseEntity<>(document, HttpStatus.CREATED);
     }
 
     @PostMapping("/item/{id}")
-    public Document addLine(@PathVariable("id") long id, @RequestBody CreateDocumentLineDTO createDocumentLineDTO) throws ChangeSetPersister.NotFoundException {
-        return documentService.addLine(id, createDocumentLineDTO);
+    public ResponseEntity<Document> addLine(@PathVariable("id") long id, @RequestBody CreateDocumentLineDTO createDocumentLineDTO) throws ChangeSetPersister.NotFoundException {
+         Document document = documentService.addLine(id, createDocumentLineDTO);
+         return new ResponseEntity<>(document, HttpStatus.CREATED);
     }
 
     @PatchMapping("/{id}")
