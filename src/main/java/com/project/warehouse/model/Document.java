@@ -34,6 +34,6 @@ public class Document {
     private DocumentType type;
 
     @JsonManagedReference
-    @OneToMany(mappedBy = "document", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "document")
     private List<DocumentLine> documentLines;
 }
