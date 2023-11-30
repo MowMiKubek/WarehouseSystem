@@ -11,7 +11,7 @@ INSERT INTO users(name, surname, login, password) VALUES('Maciej', 'Maruda', 'mm
 INSERT INTO users(name, surname, login, password) VALUES('Jakub', 'Kowalik', 'jkowalik', '$2a$10$XLDLmPQeD7MMD6IkDnNy7eEuXcqZsSHMnOnJC5y./sW2ppXUPXBlm');
 
 INSERT INTO document_header(nr, sender, client, type) VALUES ('123', 'Kosmetix', 'Joanna Nowak', 'PZ');
-INSERT INTO document_header(nr, sender, client, type) VALUES ('123', 'KosmetPOL', 'Julia Kowal', 'WZ');
+INSERT INTO document_header(nr, sender, client, type) VALUES ('124', 'KosmetPOL', 'Julia Kowal', 'WZ');
 
 INSERT INTO document_body(quantity, id_item, id_document) VALUES(3, 3, 1);
 INSERT INTO document_body(quantity, id_item, id_document) VALUES(5, 5, 1);
