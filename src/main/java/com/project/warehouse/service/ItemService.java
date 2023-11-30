@@ -1,17 +1,21 @@
 package com.project.warehouse.service;
 
 import com.project.warehouse.model.Item;
-import com.project.warehouse.repository.ItemRepository;
+import com.project.warehouse.model.dto.CreateItemDTO;
 import org.springframework.data.crossstore.ChangeSetPersister.NotFoundException;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-public interface ItemService{
-    public List<Item> getAllItems();
-    public Item getItemByEan(String ean);
-    public Item getSingleItem(long id) throws NotFoundException;
-    public Item save(Item item);
-    public Item update(long id, Item item) throws NotFoundException;
-    public void delete(long id);
+public interface ItemService {
+    List<Item> getAllItems();
+
+    Item getItemByEan(String ean) throws NotFoundException;
+
+    Item getSingleItem(long id) throws NotFoundException;
+
+    Item save(CreateItemDTO createItemDTO);
+
+    Item update(long id, Item item) throws NotFoundException;
+
+    void delete(long id);
 }
