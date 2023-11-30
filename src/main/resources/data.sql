@@ -11,10 +11,16 @@ INSERT INTO users(name, surname, login, password) VALUES('Maciej', 'Maruda', 'mm
 INSERT INTO users(name, surname, login, password) VALUES('Jakub', 'Kowalik', 'jkowalik', '$2a$10$XLDLmPQeD7MMD6IkDnNy7eEuXcqZsSHMnOnJC5y./sW2ppXUPXBlm');
 
 INSERT INTO document_header(nr, sender, client, type) VALUES ('123', 'Kosmetix', 'Joanna Nowak', 'PZ');
-INSERT INTO document_header(nr, sender, client, type) VALUES ('124', 'KosmetPOL', 'Julia Kowal', 'WZ');
+INSERT INTO document_header(nr, sender, client, type) VALUES ('124', 'KosmetPOL', 'Julia Kowal', 'PZ');
 
 INSERT INTO document_body(quantity, id_item, id_document) VALUES(3, 3, 1);
 INSERT INTO document_body(quantity, id_item, id_document) VALUES(5, 5, 1);
 INSERT INTO document_body(quantity, id_item, id_document) VALUES(9, 6, 1);
 INSERT INTO document_body(quantity, id_item, id_document) VALUES(2, 3, 2);
 INSERT INTO document_body(quantity, id_item, id_document) VALUES(1, 1, 2);
+
+INSERT INTO warehouse(quantity, id_item) VALUES(5, 3);
+INSERT INTO warehouse(quantity, id_item) VALUES(5, 5);
+INSERT INTO warehouse(quantity, id_item) VALUES(9, 6);
+INSERT INTO warehouse(quantity, id_item) VALUES(1, 1);
+

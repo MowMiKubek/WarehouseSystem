@@ -29,7 +29,7 @@ public class ItemServiceDefault implements ItemService {
     }
 
     public Item save(CreateItemDTO createItemDTO) {
-        Item item = new Item(0, createItemDTO.getBrand(), createItemDTO.getName(), createItemDTO.getEan(), null);
+        Item item = new Item(0, createItemDTO.getBrand(), createItemDTO.getName(), createItemDTO.getEan(), null, null);
         return itemRepository.save(item);
     }
 
