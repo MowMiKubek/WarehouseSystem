@@ -24,7 +24,10 @@ public class DocumentServiceDefault implements DocumentService {
     @Autowired
     private DocumentLineRepository documentLineRepository;
     @Autowired
-    ItemRepository itemRepository;
+    private ItemRepository itemRepository;
+
+    @Autowired
+    private WarehouseService warehouseService;
 
     @Override
     public List<Document> getAll() {
@@ -49,13 +52,20 @@ public class DocumentServiceDefault implements DocumentService {
                 .type(documentDTO.getType())
                 .build();
         document = documentRepository.save(document);
+
         List<DocumentLine> documentLines = new ArrayList<>();
         for (CreateDocumentLineDTO lineDTO : documentDTO.getLines()) {
-            Optional<Item> item = itemRepository.findById(lineDTO.getItemId());
-            if (item.isEmpty())
+            Optional<Item> itemOptional = itemRepository.findById(lineDTO.getItemId());
+            if (itemOptional.isEmpty())
                 throw new ChangeSetPersister.NotFoundException();
-            documentLines.add(new DocumentLine(null, lineDTO.getQuantity(), item.get(), document));
+            Item item = itemOptional.get();
+            documentLines.add(new DocumentLine(null, lineDTO.getQuantity(), item, document));
         }
+        for (DocumentLine line : documentLines) {
+            Item item = line.getItem();
+            warehouseService.addItemQuantity(item.getId(), line.getQuantity(), document.getType());
+        }
+
         documentLineRepository.saveAll(documentLines);
         return document;
     }

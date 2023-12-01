@@ -1,10 +1,12 @@
 package com.project.warehouse;
 
 import com.project.warehouse.model.Document;
+import com.project.warehouse.model.Warehouse;
 import com.project.warehouse.model.dto.CreateDocumentDTO;
 import com.project.warehouse.model.dto.CreateDocumentLineDTO;
 import com.project.warehouse.model.enums.DocumentType;
 import com.project.warehouse.service.DocumentService;
+import com.project.warehouse.service.WarehouseService;
 import jakarta.transaction.Transactional;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +23,9 @@ import static org.junit.jupiter.api.Assertions.*;
 public class DocumentTests {
     @Autowired
     private DocumentService documentService;
+
+    @Autowired
+    private WarehouseService warehouseService;
 
     @Test
     public void getAllDocuments_returnsDocumentList() {
@@ -57,5 +62,27 @@ public class DocumentTests {
         assertEquals("Sender1", document.getSender());
         assertEquals("Client1", document.getClient());
         assertEquals(DocumentType.PZ, document.getType());
+    }
+
+    @Test
+    public void givenDocumentDTOWithTypePZ_when_createDocuments_UpdatesWarehouse() throws ChangeSetPersister.NotFoundException {
+        List<CreateDocumentLineDTO> documentLines = new ArrayList<>();
+        documentLines.add(new CreateDocumentLineDTO(5, 1));
+        CreateDocumentDTO documentDTO =
+                new CreateDocumentDTO("1234", "Sender1", "Client1", DocumentType.PZ, documentLines);
+        documentService.create(documentDTO);
+        Warehouse warehouseRecord = warehouseService.findByItemId(1);
+        assertEquals(6, warehouseRecord.getQuantity());
+    }
+
+    @Test
+    public void givenDocumentDTOWithTypeWZ_when_createDocuments_UpdatesWarehouse() throws ChangeSetPersister.NotFoundException {
+        List<CreateDocumentLineDTO> documentLines = new ArrayList<>();
+        documentLines.add(new CreateDocumentLineDTO(3, 3));
+        CreateDocumentDTO documentDTO =
+                new CreateDocumentDTO("1234", "Sender1", "Client1", DocumentType.WZ, documentLines);
+        documentService.create(documentDTO);
+        Warehouse warehouseRecord = warehouseService.findByItemId(3);
+        assertEquals(2, warehouseRecord.getQuantity());
     }
 }
