@@ -19,15 +19,16 @@ public class WarehouseController {
     @Autowired
     private WarehouseService warehouseService;
 
-    @GetMapping("/{id}")
-    public ResponseEntity<Warehouse> getOneByItemId(@PathVariable("id") long id) throws ChangeSetPersister.NotFoundException {
-        Warehouse warehouseRecord = warehouseService.findByItemId(id);
-        return new ResponseEntity<>(warehouseRecord, HttpStatus.OK);
-    }
-
     @GetMapping
     public ResponseEntity<List<Warehouse>> getAll() {
         List<Warehouse> allItems = warehouseService.getAll();
         return ResponseEntity.ok(allItems);
     }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Warehouse> getOneByItemId(@PathVariable("id") long id) throws ChangeSetPersister.NotFoundException {
+        Warehouse warehouseRecord = warehouseService.getItemById(id);
+        return new ResponseEntity<>(warehouseRecord, HttpStatus.OK);
+    }
+
 }

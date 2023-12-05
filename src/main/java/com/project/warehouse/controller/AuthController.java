@@ -27,17 +27,13 @@ public class AuthController {
     private AuthenticationManager authenticationManager;
 
     @PostMapping("/register")
-    public ResponseEntity<AuthenticationResponse> register(
-            @RequestBody RegisterDTO registerDto
-    ) {
+    public ResponseEntity<AuthenticationResponse> register(@RequestBody RegisterDTO registerDto) {
         AuthenticationResponse response = userService.register(registerDto);
         return ResponseEntity.ok(response);
     }
 
     @PostMapping("/login")
-    public ResponseEntity<AuthenticationResponse> login(
-            @RequestBody LoginDTO registerDto
-    ) throws ChangeSetPersister.NotFoundException {
+    public ResponseEntity<AuthenticationResponse> login(@RequestBody LoginDTO registerDto) throws ChangeSetPersister.NotFoundException {
         authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
                         registerDto.getLogin(),

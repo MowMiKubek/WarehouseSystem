@@ -9,16 +9,17 @@ import org.springframework.data.crossstore.ChangeSetPersister;
 import java.util.List;
 
 public interface UserService {
-    public List<User> getAll();
+    List<User> getAll();
 
-    public User getOne(long id) throws ChangeSetPersister.NotFoundException;
-    public User getOneByLogin(String login) throws ChangeSetPersister.NotFoundException;
+    User getOneById(long id) throws ChangeSetPersister.NotFoundException;
 
-    public User save(RegisterDTO user);
+    User getOneByLogin(String login) throws ChangeSetPersister.NotFoundException;
 
-    public User update(long id, RegisterDTO user) throws ChangeSetPersister.NotFoundException;
+    User save(RegisterDTO user);
 
-    public void delete(long id);
+    User update(long id, RegisterDTO user) throws ChangeSetPersister.NotFoundException;
+
+    void delete(long id);
 
     AuthenticationResponse login(LoginDTO loginDTO) throws ChangeSetPersister.NotFoundException;
 

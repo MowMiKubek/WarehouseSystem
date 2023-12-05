@@ -34,7 +34,7 @@ public class UserServiceDefault implements UserService {
         return userRepository.findAll();
     }
 
-    public User getOne(long id) throws NotFoundException {
+    public User getOneById(long id) throws NotFoundException {
         return userRepository.findById(id)
                 .orElseThrow(NotFoundException::new);
     }

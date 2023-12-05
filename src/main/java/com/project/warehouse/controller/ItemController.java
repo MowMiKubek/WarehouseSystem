@@ -18,25 +18,25 @@ public class ItemController {
     private ItemService itemService;
 
     @GetMapping
-    public ResponseEntity<List<Item>> getAllItems() {
-        List<Item> items = itemService.getAllItems();
+    public ResponseEntity<List<Item>> getAll() {
+        List<Item> items = itemService.getAll();
         return ResponseEntity.ok(items);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Item> getSingleItem(@PathVariable("id") long id) throws NotFoundException {
-        Item item = itemService.getSingleItem(id);
+    public ResponseEntity<Item> getOneById(@PathVariable("id") long id) throws NotFoundException {
+        Item item = itemService.getItemById(id);
         return new ResponseEntity<>(item, HttpStatus.OK);
     }
+
     @GetMapping("/ean/{ean}")
-    public ResponseEntity<Item> getItemByEan(@PathVariable("ean") String ean) throws NotFoundException {
+    public ResponseEntity<Item> getOneByEan(@PathVariable("ean") String ean) throws NotFoundException {
         Item item = itemService.getItemByEan(ean);
         return new ResponseEntity<>(item, HttpStatus.OK);
     }
 
-
     @PostMapping
-    public ResponseEntity<Item> save(@RequestBody CreateItemDTO createItemDTO){
+    public ResponseEntity<Item> save(@RequestBody CreateItemDTO createItemDTO) {
         Item item1 = itemService.save(createItemDTO);
         return new ResponseEntity<>(item1, HttpStatus.CREATED);
     }
@@ -48,10 +48,8 @@ public class ItemController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity delete(@PathVariable("id") long id){
+    public ResponseEntity delete(@PathVariable("id") long id) {
         itemService.delete(id);
         return ResponseEntity.noContent().build();
     }
-
-
 }

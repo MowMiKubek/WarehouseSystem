@@ -14,7 +14,7 @@ public class ItemServiceDefault implements ItemService {
     @Autowired
     ItemRepository itemRepository;
 
-    public List<Item> getAllItems() {
+    public List<Item> getAll() {
         return itemRepository.findAll();
     }
 
@@ -23,7 +23,7 @@ public class ItemServiceDefault implements ItemService {
                 .orElseThrow(ChangeSetPersister.NotFoundException::new);
     }
 
-    public Item getSingleItem(long id) throws ChangeSetPersister.NotFoundException {
+    public Item getItemById(long id) throws ChangeSetPersister.NotFoundException {
         return itemRepository.findById(id)
                 .orElseThrow(ChangeSetPersister.NotFoundException::new);
     }

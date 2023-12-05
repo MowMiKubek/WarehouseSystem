@@ -28,7 +28,7 @@ public class WarehouseTest {
 
     @Test
     void givenValidItemId_whenGetWarehouse_returnWarehouse() throws ChangeSetPersister.NotFoundException {
-        Warehouse warehouse = warehouseService.findByItemId(1);
+        Warehouse warehouse = warehouseService.getItemById(1);
         assertEquals(1, warehouse.getQuantity());
         assertEquals("Rimmel", warehouse.getItem().getBrand());
         assertEquals("Szminka", warehouse.getItem().getName());
@@ -38,6 +38,6 @@ public class WarehouseTest {
     @Test
     void givenInvalidItemId_whenGetWarehouse_throwNotFoundException(){
         assertThrows(ChangeSetPersister.NotFoundException.class, () ->
-                warehouseService.findByItemId(1234));
+                warehouseService.getItemById(1234));
     }
 }

@@ -19,7 +19,7 @@ class ItemServiceTest {
 
     @Test
     void whenGetAllItems_returnsItemList() {
-        List<Item> items = itemService.getAllItems();
+        List<Item> items = itemService.getAll();
         assertInstanceOf(List.class, items);
         assertEquals(8, items.size());
         assertEquals("Rimmel", items.get(0).getBrand());
@@ -44,7 +44,7 @@ class ItemServiceTest {
 
     @Test
     void givenValidId_whenGetSingleItem_returnsItem() throws ChangeSetPersister.NotFoundException {
-        Item item = itemService.getSingleItem(1);
+        Item item = itemService.getItemById(1);
         assertInstanceOf(Item.class, item);
         assertEquals(1, item.getId());
         assertEquals("Rimmel", item.getBrand());
@@ -55,11 +55,11 @@ class ItemServiceTest {
     @Test
     void givenInvalidId_whenGetSingleItem_throwsNotFoundException() {
         assertThrows(ChangeSetPersister.NotFoundException.class,
-                () -> itemService.getSingleItem(Integer.MAX_VALUE));
+                () -> itemService.getItemById(Integer.MAX_VALUE));
     }
 
     @Test
-    void givenItem_thenCreateItem_returnItem() {
+    void givenItem_whenCreateItem_thenReturnItem() {
         CreateItemDTO itemData = new CreateItemDTO("Ecocera", "Puder", "123321123");
         Item item = itemService.save(itemData);
         assertEquals("Ecocera", item.getBrand());

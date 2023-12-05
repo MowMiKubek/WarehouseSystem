@@ -57,7 +57,7 @@ public class DocumentTests {
         documentLines.add(new CreateDocumentLineDTO(1, 1));
         CreateDocumentDTO documentDTO =
                 new CreateDocumentDTO("1234", "Sender1", "Client1", DocumentType.PZ, documentLines);
-        Document document = documentService.create(documentDTO);
+        Document document = documentService.save(documentDTO);
         assertEquals("1234", document.getNr());
         assertEquals("Sender1", document.getSender());
         assertEquals("Client1", document.getClient());
@@ -70,8 +70,8 @@ public class DocumentTests {
         documentLines.add(new CreateDocumentLineDTO(5, 1));
         CreateDocumentDTO documentDTO =
                 new CreateDocumentDTO("1234", "Sender1", "Client1", DocumentType.PZ, documentLines);
-        documentService.create(documentDTO);
-        Warehouse warehouseRecord = warehouseService.findByItemId(1);
+        documentService.save(documentDTO);
+        Warehouse warehouseRecord = warehouseService.getItemById(1);
         assertEquals(6, warehouseRecord.getQuantity());
     }
 
@@ -81,8 +81,8 @@ public class DocumentTests {
         documentLines.add(new CreateDocumentLineDTO(3, 3));
         CreateDocumentDTO documentDTO =
                 new CreateDocumentDTO("1234", "Sender1", "Client1", DocumentType.WZ, documentLines);
-        documentService.create(documentDTO);
-        Warehouse warehouseRecord = warehouseService.findByItemId(3);
+        documentService.save(documentDTO);
+        Warehouse warehouseRecord = warehouseService.getItemById(3);
         assertEquals(2, warehouseRecord.getQuantity());
     }
 }

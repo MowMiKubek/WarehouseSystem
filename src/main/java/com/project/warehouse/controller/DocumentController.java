@@ -31,14 +31,8 @@ public class DocumentController {
 
     @PostMapping
     public ResponseEntity<Document> create(@RequestBody CreateDocumentDTO createDocumentDTO) throws ChangeSetPersister.NotFoundException {
-        Document document = documentService.create(createDocumentDTO);
+        Document document = documentService.save(createDocumentDTO);
         return new ResponseEntity<>(document, HttpStatus.CREATED);
-    }
-
-    @PostMapping("/item/{id}")
-    public ResponseEntity<Document> addLine(@PathVariable("id") long id, @RequestBody CreateDocumentLineDTO createDocumentLineDTO) throws ChangeSetPersister.NotFoundException {
-         Document document = documentService.addLine(id, createDocumentLineDTO);
-         return new ResponseEntity<>(document, HttpStatus.CREATED);
     }
 
     @PatchMapping("/{id}")
@@ -50,5 +44,11 @@ public class DocumentController {
     public ResponseEntity delete(@PathVariable("id") long id) {
         documentService.delete(id);
         return ResponseEntity.noContent().build();
+    }
+
+    @PostMapping("/item/{id}")
+    public ResponseEntity<Document> addLine(@PathVariable("id") long id, @RequestBody CreateDocumentLineDTO createDocumentLineDTO) throws ChangeSetPersister.NotFoundException {
+        Document document = documentService.addLine(id, createDocumentLineDTO);
+        return new ResponseEntity<>(document, HttpStatus.CREATED);
     }
 }

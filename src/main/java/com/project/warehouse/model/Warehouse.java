@@ -3,18 +3,15 @@ package com.project.warehouse.model;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
-import lombok.Getter;
+import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 @Entity
 @Table(name = "warehouse")
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Getter
-@Setter
 public class Warehouse {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
