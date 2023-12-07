@@ -23,17 +23,8 @@ public class JwtService {
     @Value("${security.jwt.expiration}")
     private int jwtExpirationTime;
 
-    public String extractLogin(String token) {
-        return extractClaim(token, Claims::getSubject);
-    }
-
     public String generateToken(UserDetails userDetails) {
         return generateToken(new HashMap<>(), userDetails);
-    }
-
-    public <T> T extractClaim(String token, Function<Claims, T> claimsResolver) {
-        final Claims claims = extractClaims(token);
-        return claimsResolver.apply(claims);
     }
 
     public String generateToken(Map<String, Object> extraClaims, UserDetails userDetails) {
@@ -55,8 +46,17 @@ public class JwtService {
         return extractExpiration(token).before(new Date());
     }
 
+    public String extractLogin(String token) {
+        return extractClaim(token, Claims::getSubject);
+    }
+
     private Date extractExpiration(String token) {
         return extractClaim(token, Claims::getExpiration);
+    }
+
+    public <T> T extractClaim(String token, Function<Claims, T> claimsResolver) {
+        final Claims claims = extractClaims(token);
+        return claimsResolver.apply(claims);
     }
 
     private Claims extractClaims(String token) {

@@ -7,6 +7,7 @@ import jakarta.transaction.Transactional;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.crossstore.ChangeSetPersister;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -18,21 +19,21 @@ public class UserTests {
     private UserServiceDefault userService;
 
     @Test
-    void getUsers_returnsUserEntity_forValidId() throws ChangeSetPersister.NotFoundException {
-        User user = userService.getOne(1L);
+    void givenValid_Id_whenGetUsers_returnsUserEntity() throws ChangeSetPersister.NotFoundException {
+        User user = userService.getOneById(1L);
         assertNotNull(user);
         assertEquals(1L, user.getId());
         assertEquals("Maciej", user.getName());
     }
 
     @Test
-    void getUsers_throwsNotFoundException_forInvalidId() {
+    void givenInvalidId_whenGetUsers_throwsNotFoundException() {
         assertThrows(ChangeSetPersister.NotFoundException.class, () ->
-            userService.getOne(12));
+                userService.getOneById(12));
     }
 
     @Test
-    void registerUser_createsUser_forValidData() throws ChangeSetPersister.NotFoundException {
+    void forValidData_whenRegisterUser_createsUser() throws ChangeSetPersister.NotFoundException {
         RegisterDTO user = new RegisterDTO("Tomasz", "Tester", "login", "haslo");
         userService.register(user);
         User newUser = userService.getOneByLogin("login");
@@ -44,14 +45,8 @@ public class UserTests {
     }
 
     @Test
-    void registerUser_throwsError_forDuplicateLogin() throws ChangeSetPersister.NotFoundException {
-        RegisterDTO user = new RegisterDTO("Tomasz", "Tester", "login", "haslo");
-        userService.register(user);
-        User newUser = userService.getOneByLogin("login");
-        assertNotNull(newUser);
-        assertEquals("Tomasz", newUser.getName());
-        assertEquals("Tester", newUser.getSurname());
-        assertEquals("login", newUser.getLogin());
-        assertNotEquals("haslo", newUser.getPassword());
+    void forDuplicateLogin_whenRegisterUser_throwsDataIntegrityException() {
+        RegisterDTO user = new RegisterDTO("Tomasz", "Tester", "mmaruda", "haslo");
+        assertThrows(DataIntegrityViolationException.class, () -> userService.register(user));
     }
 }

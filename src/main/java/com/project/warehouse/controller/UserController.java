@@ -3,7 +3,6 @@ package com.project.warehouse.controller;
 import com.project.warehouse.model.User;
 import com.project.warehouse.model.dto.RegisterDTO;
 import com.project.warehouse.service.UserServiceDefault;
-import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.http.HttpStatus;
@@ -17,8 +16,6 @@ import java.util.List;
 public class UserController {
     @Autowired
     private UserServiceDefault userService;
-    @Autowired
-    private HttpServletRequest request;
 
     @GetMapping
     public ResponseEntity<List<User>> getAll() {
@@ -27,8 +24,8 @@ public class UserController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<User> getOne(@PathVariable("id") long id) throws ChangeSetPersister.NotFoundException {
-        User user = userService.getOne(id);
+    public ResponseEntity<User> getOneById(@PathVariable("id") long id) throws ChangeSetPersister.NotFoundException {
+        User user = userService.getOneById(id);
         return new ResponseEntity<>(user, HttpStatus.OK);
     }
 

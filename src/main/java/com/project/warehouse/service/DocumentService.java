@@ -11,7 +11,7 @@ import java.util.List;
 public interface DocumentService {
     List<Document> getAll();
     Document getOneById(long id) throws ChangeSetPersister.NotFoundException;
-    Document create(CreateDocumentDTO document) throws ChangeSetPersister.NotFoundException;
+    Document save(CreateDocumentDTO document) throws ChangeSetPersister.NotFoundException;
     Document update(long id, UpdateDocumentDTO updateDto) throws ChangeSetPersister.NotFoundException;
     void delete(long id);
     Document addLine(long id, CreateDocumentLineDTO createDocumentLineDTO) throws ChangeSetPersister.NotFoundException;

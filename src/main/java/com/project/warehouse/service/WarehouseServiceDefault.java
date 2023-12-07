@@ -21,7 +21,7 @@ public class WarehouseServiceDefault implements WarehouseService {
     private ItemService itemService;
 
     @Override
-    public Warehouse findByItemId(long id) throws NotFoundException {
+    public Warehouse getItemById(long id) throws NotFoundException {
         return warehouseRepository.findByItem_Id(id)
                 .orElseThrow(NotFoundException::new);
     }
@@ -29,7 +29,7 @@ public class WarehouseServiceDefault implements WarehouseService {
     @Override
     public void addItemQuantity(long itemId, int quantity, DocumentType type) throws NotFoundException {
         Optional<Warehouse> warehouseRecord = warehouseRepository.findByItem_Id(itemId);
-        Item item = itemService.getSingleItem(itemId);
+        Item item = itemService.getItemById(itemId);
         if (warehouseRecord.isEmpty()) {
             Warehouse newRecord = new Warehouse(0, quantity, item);
             warehouseRepository.save(newRecord);

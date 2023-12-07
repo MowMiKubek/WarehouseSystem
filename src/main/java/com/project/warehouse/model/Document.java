@@ -13,9 +13,9 @@ import java.util.List;
 @Entity
 @Table(name = "document_header")
 @Data
-@Builder
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class Document {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

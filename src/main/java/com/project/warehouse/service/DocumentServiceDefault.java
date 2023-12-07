@@ -44,7 +44,7 @@ public class DocumentServiceDefault implements DocumentService {
     }
 
     @Override
-    public Document create(CreateDocumentDTO documentDTO) throws ChangeSetPersister.NotFoundException {
+    public Document save(CreateDocumentDTO documentDTO) throws ChangeSetPersister.NotFoundException {
         Document document = Document.builder()
                 .nr(documentDTO.getNr())
                 .sender(documentDTO.getSender())
